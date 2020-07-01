@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Country from "./Country";
 import { useSelector, useDispatch } from "react-redux";
+import Wrapper from "./Wrapper";
 
 const CountryListStyled = styled.div`
   display: grid;
   grid-row-gap: 2.3em;
+  grid-auto-flow: columns;
+  grid-column-gap: 66px;
+  grid-template-columns: repeat(auto-fill, 270px);
   background: var(--background);
   justify-content: center;
-  padding: 4em 2em;
+  padding: 3em 0;
 `;
 
 function CountryList() {
@@ -45,25 +49,39 @@ function CountryList() {
   }, [dispatch]);
 
   return (
-    <CountryListStyled>
-      {/* {countryListByName.length === 0 && inputValue && (
+    <Wrapper>
+      <CountryListStyled>
+        {/* {countryListByName.length === 0 && inputValue && (
         <p>
           <strong>{inputValue}</strong> Not found in countries
         </p>
       )} */}
-      {countryList.map(({ flag, name, capital, population, region }) => {
-        return (
-          <Country
-            key={name}
-            flag={flag}
-            name={name}
-            capital={capital}
-            population={population}
-            region={region}
-          />
-        );
-      })}
-    </CountryListStyled>
+        {countryList.map(
+          ({
+            flag,
+            name,
+            capital,
+            population,
+            region,
+            nativeName,
+            alpha2Code,
+          }) => {
+            return (
+              <Country
+                key={name}
+                flag={flag}
+                name={name}
+                capital={capital}
+                population={population}
+                region={region}
+                nativeName={nativeName}
+                alpha2Code={alpha2Code}
+              />
+            );
+          }
+        )}
+      </CountryListStyled>
+    </Wrapper>
   );
 }
 
